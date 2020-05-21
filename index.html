@@ -71,7 +71,6 @@
 		<div id="container">
 			<p id="cursorTextContainer"></p>
 		</div>
-		<script src="./jquery/jquery.min.js" type="text/javascript"></script>
 		<script type="module">
 
 			import * as THREE from './build/three.module.js';
@@ -83,6 +82,7 @@
 			var camera, scene, renderer;
 			var controls;
 
+			var bubbleNum = 50;
 			var objects = [];
 
 			var toolTipTextContainer = document.getElementById("cursorTextContainer");
@@ -115,38 +115,31 @@
 
 				scene = new THREE.Scene();
 
-				var folder = "portraits/";
+				for(var i = 0; i < bubbleNum; i ++) {
 
-				$.ajax({
-            url : folder,
-            success: function (data) {
-                $(data).find("a").attr("href", function (i, val) {
-                    if( val.match(/\.(jpe?g|png|gif)$/) ) {
-											var testimonial = document.createElement('div');
-											testimonial.className = 'testimonial testimonialContainer';
+					var testimonial = document.createElement('div');
+					testimonial.className = 'testimonial testimonialContainer';
 
-											var image = document.createElement('div');
-											image.className = 'testimonial testimonialImage';
-											image.style.backgroundImage = 'url("' + folder + val + '")';
+					var image = document.createElement('div');
+					image.className = 'testimonial testimonialImage';
+					image.style.backgroundImage = 'url("portraits/0A32C297_69DB_430B_8D58_CC425DDE1F79.jpeg")';
 
-											var text = document.createElement('span');
-											text.innerHTML = "Jane Doe • 12/04/58 - 12/05/20"
-											text.className = 'tooltiptext';
+					var text = document.createElement('span');
+					text.innerHTML = "Jane Doe • 12/04/58 - 12/05/20"
+					text.className = 'tooltiptext';
 
-											testimonial.appendChild(image);
-											testimonial.appendChild(text);
+					testimonial.appendChild(image);
+					testimonial.appendChild(text);
 
-											var object = new CSS3DSprite(testimonial);
-											object.position.x = Math.random() * 4000 - 2000,
-											object.position.y = Math.random() * 4000 - 2000,
-											object.position.z = Math.random() * 4000 - 2000;
-											scene.add( object );
+					var object = new CSS3DSprite(testimonial);
+					object.position.x = Math.random() * 4000 - 2000,
+					object.position.y = Math.random() * 4000 - 2000,
+					object.position.z = Math.random() * 4000 - 2000;
+					scene.add( object );
 
-											objects.push( object );
-                    }
-                });
-            }
-        });
+					objects.push( object );
+
+				}
 
 				renderer = new CSS3DRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
